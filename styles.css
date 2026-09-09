@@ -324,7 +324,7 @@ main {
 .featured-img-wrap {
     position: relative;
     width: 100%;
-    height: 105px;
+    aspect-ratio: 1 / 1;
     background: #d9e6df;
     overflow: hidden;
 }
@@ -332,7 +332,9 @@ main {
 .featured-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
+    background: #ffffff;
     transition: transform .25s ease;
 }
 
@@ -492,7 +494,7 @@ main {
     position: relative;
     display: block;
     width: 100%;
-    height: 112px;
+    aspect-ratio: 1 / 1;
     padding: 0;
     background: none;
     border: 0;
@@ -505,8 +507,9 @@ main {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    background: #d9e6df;
+    object-fit: contain;
+    object-position: center;
+    background: #ffffff;
     transition: transform .25s ease;
 }
 
@@ -697,10 +700,11 @@ main {
 
 .order-image {
     width: 72px;
-    height: 78px;
-    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    object-position: center;
     border-radius: 12px;
-    background: #d9e6df;
+    background: #ffffff;
 }
 
 .order-info {
@@ -1147,9 +1151,10 @@ main {
 .detail-image {
     display: block;
     width: 100%;
-    height: 235px;
-    object-fit: cover;
-    background: #d9e6df;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    object-position: center;
+    background: #ffffff;
 }
 
 .detail-content {
@@ -1417,7 +1422,8 @@ main {
     }
 
     .image-button {
-        height: 98px;
+        height: auto;
+        aspect-ratio: 1 / 1;
         border-radius: 10px;
     }
 

@@ -219,14 +219,25 @@
 
     <script>
         const menuImages = {
-            ceviche: "https://i0.wp.com/recetaskwa.com/wp-content/uploads/2023/09/ceviche_camaron.jpg?ssl=1",
-            seafood: "https://www.deliciasdelmar.com.ec/wp-content/uploads/2020/08/06-Ceviche-Mixto.png",
-            soup: "https://www.cocina-ecuatoriana.com/base/stock/Recipe/encebollado-manaba/encebollado-manaba_web.jpg.webp",
-            rice: "https://imag.bonviveur.com/servir-el-arroz-con-camarones-colombiano.jpg",
-            shrimp: "https://laurenconsazon.com/wp-content/uploads/2025/05/encocado-de-camaron-square.jpg",
-            fish: "https://www.recetasnestle.com.ec/sites/default/files/2023-03/pescado-frito-entero.jpg.jpg",
-            drink: "https://cdn0.celebritax.com/sites/default/files/styles/rectangle_blur_1200x900/public/recetas/limonada.jpg",
-            platter: "https://i.pinimg.com/736x/5d/b9/14/5db914c81f82d56eef3040172e44b5d5.jpg"
+            ceviche: "",
+            seafood: "",
+            soup: "",
+            rice: "",
+            shrimp: "",
+            fish: "",
+            drink: "",
+            platter: ""
+        };
+
+        const productImage = (productName) => {
+            const fileName = productName
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-|-$/g, "");
+
+            return `imagenes/${fileName}.jpg`;
         };
 
         const products = [
@@ -309,6 +320,10 @@
             { name: "Jarra de limonada", description: "Limonada fresca.", price: "5.00", category: "bebidas", image: menuImages.drink },
             { name: "Quaker", description: "Bebida tradicional de avena.", price: "2.00", category: "bebidas", image: menuImages.drink }
         ];
+
+        products.forEach((product) => {
+            product.image = productImage(product.name);
+        });
 
         // Definición de las Macro-Categorías con Separadores Visuales
         const categoryGroups = [
