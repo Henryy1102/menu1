@@ -1,230 +1,79 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profundidad del mar | Menú</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --ink: #102a33;
-            --muted: #6d7f83;
-            --paper: #f5f7f3;
-            --card: #ffffff;
-            --coral: #e9694d;
-            --coral-dark: #bd4e39;
-            --sea: #087f78;
-            --line: #dce6e0;
-        }
-
-        * { box-sizing: border-box; }
-        html { background: #dce5e0; }
-        body {
-            margin: 0;
-            min-width: 0;
-            color: var(--ink);
-            background: var(--paper);
-            font-family: "Manrope", sans-serif;
-        }
-        button { font: inherit; cursor: pointer; }
-        .app { width: 100%; max-width: 430px; min-width: 0; min-height: 100dvh; margin: auto; overflow: hidden; background: var(--paper); }
-        .top {
-            position: relative;
-            padding: 24px 21px 18px;
-            color: #fffdf8;
-            background: var(--ink);
-            border-radius: 0 0 29px 29px;
-        }
-            .top.has-sticky-categories { padding-bottom: 86px; }
-        .top::after { content: ""; position: absolute; right: -38px; top: -58px; width: 160px; height: 160px; border: 1px solid rgba(255,255,255,.12); border-radius: 50%; }
-        .topbar { display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; }
-        .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
-        .brand-logo { width: 54px; height: 54px; flex: 0 0 auto; object-fit: cover; border: 2px solid #72d0b2; border-radius: 16px; }
-        .search-wrap { position: relative; flex: 0 0 auto; }
-        .search-button { display: grid; place-items: center; width: 42px; height: 42px; padding: 0; color: #fffdf8; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); border-radius: 50%; font-size: 25px; line-height: 1; }
-        .search-button:active { transform: scale(.95); }
-        .search-panel { position: absolute; top: 52px; right: 0; z-index: 2; display: none; width: 235px; padding: 9px; background: #fffdf8; border-radius: 14px; box-shadow: 0 10px 24px rgba(16,42,51,.22); }
-        .search-panel.visible { display: block; }
-        .search-input { width: 100%; padding: 10px 11px; color: var(--ink); background: #f5f7f3; border: 1px solid var(--line); border-radius: 9px; font: inherit; font-size: 12px; }
-        .search-input:focus { outline: 3px solid rgba(8,127,120,.2); border-color: var(--sea); }
-        .eyebrow { margin: 0 0 6px; color: #a9c4bd; font-size: 10px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; }
-        h1 { max-width: 275px; margin: 0; font: 700 30px/1.04 "Space Grotesk", sans-serif; letter-spacing: 0; }
-        .table { display: inline-flex; align-items: center; margin-top: 12px; padding: 6px 10px; color: #ffc0af; background: rgba(233,105,77,.15); border-radius: 99px; font-size: 11px; font-weight: 700; }
-        .category-scroll { position: relative; margin: 22px -21px -18px; }
-        .categories { display: flex; align-items: center; gap: 12px; margin: 0; padding: 0 46px 20px; overflow-x: auto; overscroll-behavior-x: contain; scroll-behavior: smooth; scroll-padding-inline: 46px; scroll-snap-type: x proximity; touch-action: pan-x; cursor: grab; transition: box-shadow .2s ease; }
-        .category-scroll.is-sticky { position: fixed; top: 0; left: 50%; z-index: 4; width: min(430px, 100%); background: var(--ink); box-shadow: 0 8px 18px rgba(16,42,51,.2); transform: translateX(-50%); }
-        .categories.is-sticky { padding-top: 12px; }
-        .categories:active { cursor: grabbing; }
-        .categories::-webkit-scrollbar { display: none; }
-        .category { flex: 0 0 auto; scroll-snap-align: start; min-height: 48px; padding: 12px 20px; color: #d9e2df; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.07); border-radius: 99px; font-size: 14px; font-weight: 800; line-height: 1; white-space: nowrap; transition: background .2s ease, color .2s ease, transform .2s ease; }
-        .category:active { transform: scale(.97); }
-        .category.active { color: #123338; background: #72d0b2; border-color: #72d0b2; }
-        main { padding: 27px 21px 105px; }
-        .section-heading { display: flex; align-items: center; justify-content: space-between; min-height: 32px; margin-bottom: 17px; gap: 12px; }
-        h2 { max-width: 265px; margin: 0; font: 700 24px/1.1 "Space Grotesk", sans-serif; }
-        .section-title { display: block !important; flex: 1 1 auto; min-width: 0; min-height: 28px; color: var(--ink) !important; font-size: 24px; font-weight: 700; line-height: 1.1; opacity: 1 !important; visibility: visible !important; }
-        .open-now { color: var(--coral-dark); font-size: 11px; font-weight: 800; white-space: nowrap; }
-        .menu-list { display: grid; gap: 12px; }
-        .item { display: grid; grid-template-columns: 93px 1fr 39px; gap: 13px; align-items: center; padding: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 8px 20px rgba(16,42,51,.05); animation: appear .45s both; }
-        .item:nth-child(2) { animation-delay: .06s; } .item:nth-child(3) { animation-delay: .12s; } .item:nth-child(4) { animation-delay: .18s; }
-        .image-button { display: block; width: 93px; height: 100px; padding: 0; background: none; border: 0; border-radius: 14px; overflow: hidden; }
-        .item-image { display: block; width: 93px; height: 100px; object-fit: cover; background: #d9e6df; transition: transform .2s ease; }
-        .image-button:hover .item-image { transform: scale(1.05); }
-        .item-name { margin: 0 0 4px; font-size: 15px; font-weight: 800; line-height: 1.15; }
-        .item-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
-        .recommended { display: inline-flex; align-items: center; padding: 3px 7px; color: #8b4d0a; background: #ffe0a0; border-radius: 99px; font-size: 9px; font-weight: 800; }
-        .item-description { min-height: 31px; margin: 0 0 6px; color: var(--muted); font-size: 11px; line-height: 1.35; }
-        .price { color: var(--coral-dark); font-size: 16px; font-weight: 700; }
-        .add { display: grid; place-items: center; width: 39px; height: 39px; color: white; background: var(--sea); border: 0; border-radius: 13px; font-size: 23px; line-height: 1; transition: transform .15s, background .15s; }
-        .add:hover { background: var(--coral-dark); }
-        .add:active { transform: scale(.88); background: var(--coral); }
-        .empty { padding: 30px; color: var(--muted); text-align: center; }
-        .order-view { display: none; }
-        .order-view.visible { display: block; }
-        .order-header { padding: 24px 21px 25px; color: #fffdf8; background: var(--ink); border-radius: 0 0 29px 29px; }
-        .back-button { display: inline-flex; align-items: center; gap: 8px; padding: 0; color: #b8cfca; background: none; border: 0; font-size: 12px; font-weight: 700; }
-        .back-button span { font-size: 20px; line-height: .7; }
-        .order-view .eyebrow { margin-top: 22px; }
-        .order-view h1 { max-width: none; }
-        .order-list { display: grid; gap: 12px; }
-        .order-item { display: grid; grid-template-columns: 72px 1fr; gap: 12px; padding: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 8px 20px rgba(16,42,51,.05); }
-        .order-image { width: 72px; height: 78px; object-fit: cover; border-radius: 12px; background: #d9e6df; }
-        .order-info { min-width: 0; }
-        .order-name { margin: 2px 0 4px; font-size: 15px; font-weight: 800; line-height: 1.15; }
-        .order-price { color: var(--coral-dark); font-size: 14px; font-weight: 800; }
-        .order-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
-        .quantity { display: inline-flex; align-items: center; gap: 13px; color: var(--ink); }
-        .quantity button { display: grid; place-items: center; width: 28px; height: 28px; color: var(--sea); background: #e6f1ec; border: 0; border-radius: 9px; font-size: 18px; line-height: 1; }
-        .quantity strong { min-width: 14px; text-align: center; }
-        .remove { padding: 0; color: var(--coral-dark); background: none; border: 0; font-size: 11px; font-weight: 800; }
-        .order-summary { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
-        .summary-row { display: flex; justify-content: space-between; gap: 16px; color: var(--muted); font-size: 13px; }
-        .summary-row.total { margin-top: 8px; color: var(--ink); font-size: 20px; font-weight: 800; }
-        .clear-cart { width: 100%; margin-top: 16px; padding: 11px 16px; color: var(--coral-dark); background: transparent; border: 1px solid var(--line); border-radius: 14px; font-size: 12px; font-weight: 800; }
-        .clear-cart:active { transform: scale(.98); }
-        .clear-cart:disabled { opacity: .45; cursor: not-allowed; }
-        .order-empty { padding: 40px 18px; color: var(--muted); text-align: center; background: var(--card); border: 1px solid var(--line); border-radius: 18px; }
-        .order-empty strong { display: block; margin-bottom: 7px; color: var(--ink); font: 700 21px "Space Grotesk", sans-serif; }
-        .back-menu { display: inline-block; margin-top: 18px; color: var(--sea); font-size: 13px; font-weight: 800; text-decoration: none; }
-        .location-view { display: none; }
-        .location-view.visible { display: block; }
-        .location-header { padding: 24px 21px 25px; color: #fffdf8; background: var(--ink); border-radius: 0 0 29px 29px; }
-        .location-view .eyebrow { margin-top: 22px; }
-        .location-view h1 { max-width: none; }
-        .location-card { padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 8px 20px rgba(16,42,51,.05); }
-        .location-label { display: block; margin-bottom: 8px; color: var(--ink); font-size: 13px; font-weight: 800; }
-        .location-input { width: 100%; min-height: 94px; padding: 13px; color: var(--ink); background: #f5f7f3; border: 1px solid var(--line); border-radius: 12px; font: inherit; font-size: 13px; resize: vertical; }
-        .location-input::placeholder { color: #6d7f83; }
-        .location-input:focus { outline: 3px solid rgba(8,127,120,.2); border-color: var(--sea); }
-        .maps-button { width: 100%; margin-top: 14px; padding: 14px 18px; color: white; background: var(--sea); border: 0; border-radius: 14px; font-size: 14px; font-weight: 800; }
-        .maps-button:active { transform: scale(.98); }
-        .maps-button:disabled { opacity: .45; cursor: not-allowed; }
-        .location-help { margin: 10px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
-        .contact-view { display: none; }
-        .contact-view.visible { display: block; }
-        .contact-header { padding: 24px 21px 25px; color: #fffdf8; background: var(--ink); border-radius: 0 0 29px 29px; }
-        .contact-view .eyebrow { margin-top: 22px; }
-        .contact-view h1 { max-width: none; }
-        .contact-card { padding: 22px 20px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 8px 20px rgba(16,42,51,.05); }
-        .contact-card h2 { margin: 0 0 9px; font: 700 23px/1.1 "Space Grotesk", sans-serif; }
-        .contact-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
-        .whatsapp-button { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 20px; padding: 14px 18px; color: white; background: #128c7e; border: 0; border-radius: 14px; font-size: 14px; font-weight: 800; text-decoration: none; }
-        .whatsapp-button:active { transform: scale(.98); }
-        .whatsapp-icon { width: 21px; height: 21px; filter: brightness(0) invert(1); }
-        .product-modal { position: fixed; inset: 0; z-index: 5; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(16,42,51,.64); }
-        .product-modal.visible { display: flex; }
-        .product-detail { position: relative; width: min(390px, 100%); overflow: hidden; background: var(--card); border-radius: 20px; box-shadow: 0 18px 50px rgba(16,42,51,.25); }
-        .detail-image { display: block; width: 100%; height: 245px; object-fit: cover; background: #d9e6df; }
-        .detail-content { padding: 20px; }
-        .detail-name { margin: 0 0 8px; font: 700 25px/1.08 "Space Grotesk", sans-serif; }
-        .detail-description { margin: 0 0 12px; color: var(--muted); font-size: 13px; line-height: 1.5; }
-        .detail-quantity { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; color: var(--muted); font-size: 12px; font-weight: 800; }
-        .quantity-picker { display: inline-flex; align-items: center; gap: 13px; color: var(--ink); }
-        .quantity-picker button { display: grid; place-items: center; width: 30px; height: 30px; color: var(--sea); background: #e6f1ec; border: 0; border-radius: 9px; font-size: 19px; line-height: 1; }
-        .quantity-picker strong { min-width: 18px; text-align: center; }
-        .detail-price { color: var(--coral-dark); font-size: 20px; font-weight: 800; }
-        .detail-add { width: 100%; margin-top: 18px; padding: 13px 18px; color: white; background: var(--sea); border: 0; border-radius: 14px; font-size: 14px; font-weight: 800; }
-        .detail-close { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 34px; height: 34px; color: var(--ink); background: rgba(255,255,255,.9); border: 0; border-radius: 50%; font-size: 23px; line-height: 1; }
-        .bottom-nav { position: fixed; right: 0; bottom: 0; left: 0; z-index: 3; display: flex; justify-content: center; pointer-events: none; }
-        .nav-inner { display: flex; align-items: center; width: min(430px, 100%); padding: 10px 16px 13px; color: #eefaf4; background: var(--sea); border-top: 3px solid #f6bd68; box-shadow: 0 -8px 22px rgba(16,42,51,.16); pointer-events: auto; }
-        .nav-link { display: grid; flex: 1 1 0; min-width: 0; place-items: center; min-height: 40px; padding: 0 4px; color: inherit; background: none; border: 0; border-radius: 12px; font-size: 12px; font-weight: 800; text-align: center; }
-        .nav-link span:first-child { display: none; }
-        .nav-link.active { color: #fffdf8; background: var(--sea); }
-        .floating-cart { position: fixed; right: max(16px, calc((100vw - 430px) / 2 + 16px)); bottom: 84px; z-index: 4; display: inline-flex; align-items: center; gap: 7px; min-width: 116px; height: 54px; padding: 0 14px; color: var(--ink); background: #f6bd68; border: 0; border-radius: 99px; box-shadow: 0 8px 20px rgba(16,42,51,.22); font-size: 21px; font-weight: 800; }
-        .cart-label { font-size: 12px; }
-        .floating-cart:active { transform: scale(.96); }
-        .floating-count { position: absolute; top: -3px; right: -3px; display: grid; place-items: center; min-width: 21px; height: 21px; padding: 0 5px; color: #fffdf8; background: var(--coral); border: 2px solid var(--paper); border-radius: 50%; font-size: 10px; font-weight: 800; }
-        .toast { position: fixed; bottom: 79px; left: 50%; z-index: 4; padding: 11px 17px; color: white; background: var(--ink); border-radius: 99px; font-size: 12px; opacity: 0; transform: translate(-50%, 15px); transition: .25s; pointer-events: none; }
-        .toast.show { opacity: 1; transform: translate(-50%, 0); }
-        @keyframes appear { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
-        @media (max-width: 360px) {
-            .top { padding-right: 14px; padding-left: 14px; }
-            .top.has-sticky-categories { padding-bottom: 82px; }
-            .brand { gap: 8px; }
-            .brand-logo { width: 46px; height: 46px; border-radius: 13px; }
-            h1 { max-width: 205px; font-size: 26px; }
-            .search-button { width: 38px; height: 38px; font-size: 22px; }
-            .category-scroll { margin-right: -14px; margin-left: -14px; }
-            .categories { padding-right: 46px; padding-left: 46px; }
-            .category-scroll.is-sticky { margin-right: 0; margin-left: 0; }
-            main { padding-right: 14px; padding-left: 14px; }
-            .section-title { font-size: 21px; }
-            .item { grid-template-columns: 76px minmax(0, 1fr) 36px; gap: 9px; padding: 8px; }
-            .image-button, .item-image { width: 76px; height: 84px; }
-            .add { width: 36px; height: 36px; }
-            .floating-cart { right: 12px; min-width: 104px; padding: 0 11px; }
-        }
-        @media (min-width: 431px) { body { padding: 20px 0; } .app { border-radius: 28px; box-shadow: 0 18px 50px rgba(16,42,51,.2); } .bottom-nav { bottom: 20px; } }
-    </style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="app">
         <header class="top">
             <div class="topbar">
                 <div class="brand">
                     <img class="brand-logo" src="logo.jpg" alt="Logo de Profundidad del mar">
-                    <div>
-                    <p class="eyebrow">Cevichería y asados</p>
-                    <h1>Profundidad del mar</h1>
-                    </div>
-                </div>
-                <div class="search-wrap">
-                    <button class="search-button" id="search-button" type="button" aria-label="Buscar productos" aria-expanded="false">⌕</button>
-                    <div class="search-panel" id="search-panel">
-                        <input class="search-input" id="search-input" type="search" placeholder="Buscar plato" aria-label="Buscar plato">
+                    <div class="brand-text">
+                        <p class="eyebrow">Cevichería &amp; Asados</p>
+                        <h1>Profundidad del mar</h1>
+
                     </div>
                 </div>
             </div>
+
+            <!-- Buscador Visible e Inmediato -->
+            <div class="search-box">
+                <span class="search-box-icon" aria-hidden="true"></span>
+                <input class="search-input" id="search-input" type="search"
+                    placeholder="¿Qué te provoca hoy? (ej. camarón, combo...)" aria-label="Buscar plato">
+                <button class="search-clear-btn" id="search-clear" type="button"
+                    aria-label="Limpiar búsqueda">✕</button>
+            </div>
+
+            <!-- Categorías Organizadas -->
             <div class="category-scroll">
                 <nav class="categories" aria-label="Categorías">
-                <button class="category active" data-category="todos">Todo</button>
-                <button class="category" data-category="encebollados">Encebollados</button>
-                <button class="category" data-category="ceviches">Ceviches</button>
-                <button class="category" data-category="conchitas">Conchitas</button>
-                <button class="category" data-category="sopas">Sopas</button>
-                <button class="category" data-category="arroz">Arroz</button>
-                <button class="category" data-category="cazuelas">Cazuelas</button>
-                <button class="category" data-category="encocados">Encocados</button>
-                <button class="category" data-category="apanados">Apanados</button>
-                <button class="category" data-category="fuertes">Platos fuertes</button>
-                <button class="category" data-category="menestras">Menestras</button>
-                <button class="category" data-category="porciones">Porciones</button>
-                <button class="category" data-category="desayunos">Desayunos</button>
-                <button class="category" data-category="bebidas">Bebidas</button>
-                <button class="category" data-category="combos">Combos</button>
+                    <button class="category active" data-category="todos">🌟 Todo el Menú</button>
+                    <button class="category" data-category="combos">🍱 Combos</button>
+                    <button class="category" data-category="encebollados-sopas">🍲 Encebollados &amp; Sopas</button>
+                    <button class="category" data-category="ceviches-conchas">🍋 Ceviches &amp; Conchas</button>
+                    <button class="category" data-category="arroz-cazuelas">🥘 Arroces &amp; Cazuelas</button>
+                    <button class="category" data-category="encocados-apanados">🥥 Encocados &amp; Apanados</button>
+                    <button class="category" data-category="asados-menestras">🥩 Fuertes &amp; Menestras</button>
+                    <button class="category" data-category="desayunos">🌅 Desayunos</button>
+                    <button class="category" data-category="bebidas-porciones">🥤 Bebidas &amp; Extras</button>
                 </nav>
             </div>
         </header>
+
         <main>
-            <div class="section-heading"><h2 class="section-title" id="section-title">Menú Completo</h2><span class="open-now">20-30 min</span></div>
-            <section class="menu-list" id="menu-list" aria-live="polite"></section>
+            <!-- Sección Destacada: Favoritos (Top 4) -->
+            <section class="featured-section" id="featured-section">
+                <div class="featured-header">
+                    <div>
+                        <span class="featured-eyebrow">⭐ Selección especial</span>
+                        <h2 class="featured-title">Los Más Pedidos</h2>
+                    </div>
+                    <span class="featured-badge">Favoritos</span>
+                </div>
+                <div class="featured-carousel" id="featured-carousel"></div>
+            </section>
+
+            <!-- Contenedor del Menú con Separadores Temáticos -->
+            <div class="menu-container" id="menu-container" aria-live="polite"></div>
         </main>
+
+        <!-- Vista Carrito (intacta) -->
         <section class="order-view" id="order-view" aria-labelledby="order-title">
             <header class="order-header">
-                <button class="back-button" id="back-button" type="button"><span aria-hidden="true">‹</span> Volver al menú</button>
+                <button class="back-button" id="back-button" type="button"><span aria-hidden="true">‹</span> Volver al
+                    menú</button>
                 <p class="eyebrow">Tu selección</p>
                 <h1 id="order-title">Pedido para la mesa</h1>
             </header>
@@ -238,9 +87,12 @@
                 </section>
             </main>
         </section>
+
+        <!-- Vista Ubicación (intacta) -->
         <section class="location-view" id="location-view" aria-labelledby="location-title">
             <header class="location-header">
-                <button class="back-button" id="location-back" type="button"><span aria-hidden="true">‹</span> Volver al menú</button>
+                <button class="back-button" id="location-back" type="button"><span aria-hidden="true">‹</span> Volver al
+                    menú</button>
                 <p class="eyebrow">Encuéntranos</p>
                 <h1 id="location-title">Nuestra ubicación</h1>
             </header>
@@ -253,6 +105,8 @@
                 </div>
             </main>
         </section>
+
+        <!-- Vista Contacto (intacta) -->
         <section class="contact-view" id="contact-view" aria-labelledby="contact-title">
             <header class="contact-header">
                 <p class="eyebrow">Estamos para ayudarte</p>
@@ -262,14 +116,19 @@
                 <div class="contact-card">
                     <h2>¿Tienes alguna pregunta?</h2>
                     <p>Escríbenos para consultar si deseas envios a domicilio.</p>
-                    <a class="whatsapp-button" href="https://wa.me/593962802439?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20local%20para%20pedidos%20a%20domicilio" target="_blank" rel="noopener noreferrer">
+                    <a class="whatsapp-button"
+                        href="https://wa.me/593962802439?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20local%20para%20pedidos%20a%20domicilio"
+                        target="_blank" rel="noopener noreferrer">
                         <img class="whatsapp-icon" src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="">
                         Escribir por WhatsApp
                     </a>
                 </div>
             </main>
         </section>
-        <div class="product-modal" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="detail-name" aria-hidden="true">
+
+        <!-- Modal de Producto (intacto) -->
+        <div class="product-modal" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="detail-name"
+            aria-hidden="true">
             <article class="product-detail">
                 <button class="detail-close" id="detail-close" type="button" aria-label="Cerrar información">×</button>
                 <img class="detail-image" id="detail-image" alt="">
@@ -289,7 +148,12 @@
                 </div>
             </article>
         </div>
-        <button class="floating-cart" id="floating-cart" type="button" aria-label="Abrir carrito">🛒<span class="cart-label">Carrito</span><span class="floating-count">0</span></button>
+
+        <!-- Botón flotante carrito -->
+        <button class="floating-cart" id="floating-cart" type="button" aria-label="Abrir carrito">🛒<span
+                class="cart-label">Carrito</span><span class="floating-count">0</span></button>
+
+        <!-- Barra de navegación inferior -->
         <div class="bottom-nav">
             <nav class="nav-inner" aria-label="Navegación principal">
                 <button class="nav-link active"><span></span>Menú</button>
@@ -297,44 +161,11 @@
                 <button class="nav-link" id="contact-button"><span></span>Contáctanos</button>
             </nav>
         </div>
+
         <div class="toast" role="status">Agregado al pedido</div>
     </div>
+
     <script>
-        const legacyProducts = [
-            { name: "Empanadas de Verde", description: "Masa de plátano verde rellena de queso fresco o carne, fritas y crujientes.", price: "2.50", category: "entradas", image: "https://recetas123.net/wp-content/uploads/empanadas-de-verde-1.jpg" },
-            { name: "Bolón de Verde", description: "Bola de plátano verde machacado, mezclado con chicharrón y queso.", price: "3.00", category: "entradas", image: "https://www.recetasnestle.com.ec/sites/default/files/styles/recipe_detail_desktop_new/public/srh_recipes/fb1073a76175fe59c4b1a5834cbc1440.jpg?itok=CeMmF2cy" },
-            { name: "Patacones con queso", description: "Rodajas de verde aplastadas y fritas, acompañadas de queso fresco.", price: "3.00", category: "entradas", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqTfd6PhLdEeMCWlUONM1PUqsla6yOaPAiTxuoSh94wFstA241OvzokRbn&s=10" },
-            { name: "Corviche", description: "Masa de verde rellena de pescado y maní, frita y crujiente.", price: "2.50", category: "entradas", image: "https://www.7canibales.com/wp-content/uploads/sites/2/2024/05/foto-corviche-copia-2.jpeg" },
-            { name: "Tortillas de Verde:", description: "Tortillas suaves y doradas hechas de plátano verde cocinado y machacado.", price: "3.00", category: "entradas", image: "https://recetas123.net/wp-content/uploads/tortillas-verde1.jpg" },
-            { name: "Encebollado de Pescado", description: "Trozos de albacora fresca con yuca cocinada, abundante cebolla curtida, cilantro y jugo de limón.", price: "3.50", category: "sopas", image: "https://www.cocina-ecuatoriana.com/base/stock/Recipe/encebollado-manaba/encebollado-manaba_web.jpg.webp" },
-            { name: "Encebollado Mixto", description: "La receta clásica de albacora y yuca combinada con camarones frescos.", price: "5.00", category: "sopas", image: "https://livingecuadortravel.com/wp-content/uploads/2021/02/Encebollado-Mixto-by-Juan-Carlos-Rodriguez-Clavijo-1240x827.jpg" },
-            { name: "Encebollado Marinero", description: "Edición especial con albacora, camarón, calamar y concha.", price: "8.50", category: "sopas", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0HywLWAGF4vgKaqyqdxzVC9O-7VggFJAXPJ78w20sd-deUnnvNJXqyh4&s=10" },
-            { name: "Ceviche de Camarón", description: "Camarones cocidos en jugo de limón, naranja, cebolla paiteña y tomate.", price: "11.00", category: "ceviches", image: "https://i0.wp.com/recetaskwa.com/wp-content/uploads/2023/09/ceviche_camaron.jpg?ssl=1" },
-            { name: "Ceviche de Pescado", description: "Cubos de pescado fresco curtidos en jugo de limón y naranja con cebolla y tomate.", price: "9.00", category: "ceviches", image: "https://i0.wp.com/recetaskwa.com/wp-content/uploads/2023/09/ceviche_camaron.jpg?ssl=1" },
-            { name: "Ceviche Mixto", description: "Combinación de camarón, pescado y calamar marinados en cítricos.", price: "12.50", category: "ceviches", image: "https://www.deliciasdelmar.com.ec/wp-content/uploads/2020/08/06-Ceviche-Mixto.png" },
-            { name: "Ceviche Jipijapa", description: "Ceviche de pescado o camarón con una fina pasta de maní incorporada.", price: "12.50", category: "ceviches", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR42vlg75EQ03tpEJVii-XMAS51lWiaeyMN48U3Y06712fXt-fvTTTghYU&s=10" },
-            { name: "Ceviche de Concha", description: "Conchas prietas frescas marinadas al momento con limón y cebolla.", price: "11.00", category: "ceviches", image: "https://www.recetasnestle.com.ec/sites/default/files/srh_recipes/a75ce1c7bbf098a743a171b043706a17.jpg" },
-            { name: "Ceviche Pulpo", description: "Tentáculos de pulpo tierno marinados en salsa cítrica con hierbitas.", price: "12.00", category: "ceviches", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZFXarWJPyk3CHXaSz3kCHNNBshR6VjsQ3DKY-SEddnkwVGKH8Td6KtJOJ&s=10" },
-            { name: "Encocado de Pescado", description: "Pescado fresco cocinado en una cremosa salsa de coco y achiote.", price: "11.20", category: "fuertes", image: "https://laurenconsazon.com/wp-content/uploads/2025/04/encocado-de-pescado-square.jpg" },
-            { name: "Encocado de Camarón", description: "Camarones jugosos bañados en salsa tradicional de coco y hierbitas.", price: "12.00", category: "fuertes", image: "https://laurenconsazon.com/wp-content/uploads/2025/05/encocado-de-camaron-square.jpg" },
-            { name: "Arroz con Camarón:", description: "Arroz amarillo salteado con vegetales, achiote y camarones frescos.", price: "8.50", category: "fuertes", image: "https://imag.bonviveur.com/servir-el-arroz-con-camarones-colombiano.jpg" },
-            { name: "Arroz Marinero", description: "Arroz sazonado con una mezcla de mariscos y un toque de culantro.", price: "10.50", category: "fuertes", image: "https://www.recetasnestle.com.ec/sites/default/files/styles/recipe_detail_desktop_new/public/srh_recipes/7283831430f0ad722c8fad598b4d8851.jpg?itok=qlUvHH5l" },
-            { name: "Cazuela de Camarón", description: "Plato espeso de verde, maní y camarones horneado en olla de barro.", price: "11.00", category: "fuertes", image: "https://www.recetasnestle.com.ec/sites/default/files/srh_recipes/f89e6f11881229952b611d7f96d4bffe.jpg" },
-            { name: "Pescado Frito", description: "Pescado entero crujiente acompañado de patacones, arroz y ensalada.", price: "15.00", category: "fuertes", image: "https://www.recetasnestle.com.ec/sites/default/files/2023-03/pescado-frito-entero.jpg.jpg" },
-            { name: "Seco de Chivo", description: "Guiso tradicional de carne de chivo tierna con naranjilla y especias.", price: "8.50", category: "asados", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAOhxhgH1tsPeJSSXzvMsQRcJPmw-M2BYS_qLeQSJmRKV5VxlvSUcBeZ4&s=10" },
-            { name: "Seco de Pollo", description: "Presa de pollo estofada en salsa de culantro, cebolla y naranjilla.", price: "6.50", category: "asados", image: "https://www.laylita.com/recetas/wp-content/uploads/2008/02/Seco-de-pollo-ecuatoriano-Recetas-de-Laylita.jpg" },
-            { name: "Carne Asada", description: "Corte de res a la parrilla servido con papas doradas y ensalada.", price: "9.50", category: "asados", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj3SKvipOpFkhbmt1474ZFCBNVMQgqTQCZWDLY0i79_CREboOBdGvoYm9-&s=10" },
-            { name: "Parrillada Mixta", description: "Selección de res, pollo, chorizo y costilla de cerdo asados al carbón.", price: "16.00", category: "asados", image: "https://i.pinimg.com/736x/5d/b9/14/5db914c81f82d56eef3040172e44b5d5.jpg" },
-            { name: "Churrasco", description: "Bistec de res a la plancha con huevo frito, papas fritas y aguacate.", price: "10.50", category: "asados", image: "https://www.recetasnestle.com.ec/sites/default/files/srh_recipes/e08e7539a4efd356c39dbf3af45f1a34.jpg" },
-            { name: "Pechuga a la Plancha", description: "Filete de pollo jugoso marinado al carbón con guarnición fresca.", price: "8.50", category: "asados", image: "https://comidasperuanas.net/wp-content/uploads/2023/08/Receta-de-Pollo-a-la-Plancha.jpg" },
-            { name: "Arroz", description: "Arroz blanco tradicional", price: "2.00", category: "extras", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1tV-8F62nkNoEgfdzSc0C5ARkybm2afepruEfE849ud0C1IgXsuRCo3Si&s=10" },
-            { name: "Chifles", description: "Rodajas de verde fritas y crujientes.", price: "2.50", category: "extras", image: "https://recetasdecomidaecuatoriana.com/wp-content/uploads/chifles-largos.jpg" },
-            { name: "Maduro Frito", description: "Rodajas de plátano maduro fritas y caramelizadas.", price: "2.50", category: "extras", image: "https://recetas123.net/wp-content/uploads/maduros-fritos-tajadas.jpg" },
-            { name: "Limonada de coco", description: "Cremosa, fresca y hecha al momento.", price: "2.50", category: "bebidas", image: "https://foodmetamorphosis.com/wp-content/uploads/2025/03/limonada-de-coco-puertorriquena.jpg" },
-            { name: "Limonada", description: "Fresca limonada y hecha al momento.", price: "2.00", category: "bebidas", image: "https://cdn0.celebritax.com/sites/default/files/styles/rectangle_blur_1200x900/public/recetas/limonada.jpg" },
-            { name: "Cerveza Pilsener", description: "Cerveza nacional Pilsener.", price: "2.00", category: "bebidas", image: "https://sanjosedepuembo.com/guestservice/wp-content/uploads/2020/07/bebida1-07.jpg" },
-            { name: "Cerveza Club", description: "Cerveza nacional Club.", price: "2.50", category: "bebidas", image: "https://www.loscebichesdelaruminahui.com/wp-content/uploads/2018/03/club-verde-pequena-700x824.jpg" }
-        ];
         const menuImages = {
             ceviche: "https://i0.wp.com/recetaskwa.com/wp-content/uploads/2023/09/ceviche_camaron.jpg?ssl=1",
             seafood: "https://www.deliciasdelmar.com.ec/wp-content/uploads/2020/08/06-Ceviche-Mixto.png",
@@ -345,6 +176,7 @@
             drink: "https://cdn0.celebritax.com/sites/default/files/styles/rectangle_blur_1200x900/public/recetas/limonada.jpg",
             platter: "https://i.pinimg.com/736x/5d/b9/14/5db914c81f82d56eef3040172e44b5d5.jpg"
         };
+
         const products = [
             { name: "Encebollado medio", description: "Porción mediana de encebollado tradicional.", price: "2.50", category: "encebollados", image: menuImages.soup },
             { name: "Encebollado normal", description: "Encebollado tradicional con pescado, yuca y cebolla curtida.", price: "3.00", category: "encebollados", image: menuImages.soup },
@@ -425,13 +257,86 @@
             { name: "Jarra de limonada", description: "Limonada fresca.", price: "5.00", category: "bebidas", image: menuImages.drink },
             { name: "Quaker", description: "Bebida tradicional de avena.", price: "2.00", category: "bebidas", image: menuImages.drink }
         ];
-        const list = document.querySelector('#menu-list');
+
+        // Definición de las Macro-Categorías con Separadores Visuales
+        const categoryGroups = [
+            {
+                id: "combos",
+                icon: "🍱",
+                name: "Combos del Día",
+                subtitle: "Combos completos",
+                categories: ["combos"]
+            },
+            {
+                id: "encebollados-sopas",
+                icon: "🍲",
+                name: "Encebollados y Sopas",
+                subtitle: "Albacora fresca y caldos tradicionales",
+                categories: ["encebollados", "sopas"]
+            },
+            {
+                id: "ceviches-conchas",
+                icon: "🍋",
+                name: "Ceviches y Conchas",
+                subtitle: "Marinados al momento con cítricos frescos",
+                categories: ["ceviches", "conchitas"]
+            },
+            {
+                id: "arroz-cazuelas",
+                icon: "🥘",
+                name: "Arroces y Cazuelas",
+                subtitle: "Arroces salteados y cazuelas tradicionales",
+                categories: ["arroz", "cazuelas"]
+            },
+            {
+                id: "encocados-apanados",
+                icon: "🥥",
+                name: "Encocados y Apanados",
+                subtitle: "Salsa cremosa de coco y crocantes dorados",
+                categories: ["encocados", "apanados"]
+            },
+            {
+                id: "asados-menestras",
+                icon: "🥩",
+                name: "Platos Fuertes y Menestras",
+                subtitle: "Pargos, langostinos y menestras caseras",
+                categories: ["fuertes", "menestras"]
+            },
+            {
+                id: "desayunos",
+                icon: "🌅",
+                name: "Desayunos Tradicionales",
+                subtitle: "Tigrillos criollos servidos con café",
+                categories: ["desayunos"]
+            },
+            {
+                id: "bebidas-porciones",
+                icon: "🥤",
+                name: "Bebidas y Porciones",
+                subtitle: "Jugos naturales, jarras y acompañamientos",
+                categories: ["bebidas", "porciones"]
+            }
+        ];
+
+        // Platos Favoritos para el bloque superior
+        const featuredNames = [
+
+            "Encebollado mixto con concha y camarón",
+            "Ceviche profundidad del mar",
+            "Combo 6",
+            "Arroz marinero"
+        ];
+
+        // Elementos DOM
+        const menuContainer = document.querySelector('#menu-container');
+        const featuredSection = document.querySelector('#featured-section');
+        const featuredCarousel = document.querySelector('#featured-carousel');
+        const searchInput = document.querySelector('#search-input');
+        const searchClear = document.querySelector('#search-clear');
         const counts = document.querySelectorAll('.floating-count');
         const toast = document.querySelector('.toast');
         const floatingCart = document.querySelector('#floating-cart');
         const menuHeader = document.querySelector('.top');
-        const categoriesBar = document.querySelector('.categories');
-        const categoryScroll = document.querySelector('.category-scroll');
         const menuMain = document.querySelector('main');
         const bottomNav = document.querySelector('.bottom-nav');
         const orderView = document.querySelector('#order-view');
@@ -446,9 +351,6 @@
         const mapsButton = document.querySelector('#maps-button');
         const menuButton = document.querySelector('.nav-link.active');
         const contactButton = document.querySelector('#contact-button');
-        const searchButton = document.querySelector('#search-button');
-        const searchPanel = document.querySelector('#search-panel');
-        const searchInput = document.querySelector('#search-input');
         const productModal = document.querySelector('#product-modal');
         const detailImage = document.querySelector('#detail-image');
         const detailName = document.querySelector('#detail-name');
@@ -458,22 +360,141 @@
         const detailQuantity = document.querySelector('#detail-quantity');
         const detailDecrease = document.querySelector('#detail-decrease');
         const detailIncrease = document.querySelector('#detail-increase');
+
+        let currentCategory = 'todos';
         let selectedProduct = null;
         let selectedQuantity = 1;
-        const defaultLocation = 'https://maps.app.goo.gl/Pf23X9h6FnHg8PqBA';
+        const defaultLocation = 'https://maps.app.goo.gl/Ca9ytYmjk1dNXDgJ8';
         let cart = JSON.parse(localStorage.getItem('pedido') || '[]');
         let toastTimer;
-        const updateStickyCategories = () => {
-            const shouldStick = window.scrollY > categoriesBar.offsetTop;
-            categoriesBar.classList.toggle('is-sticky', shouldStick);
-            categoryScroll.classList.toggle('is-sticky', shouldStick);
-            menuHeader.classList.toggle('has-sticky-categories', shouldStick);
-        };
-        window.addEventListener('scroll', updateStickyCategories, { passive: true });
+
+        function isRecommended(product) {
+            return /profundidad del mar|rompe colchón|combo 1|mixto/i.test(product.name);
+        }
+
+        function renderFeatured() {
+            const featuredItems = featuredNames.map(name => products.find(p => p.name.toLowerCase() === name.toLowerCase())).filter(Boolean);
+            featuredCarousel.innerHTML = featuredItems.map(product => `
+                <article class="featured-card">
+                    <div class="featured-img-wrap">
+                        <img class="featured-img" src="${product.image}" alt="${product.name}" loading="lazy">
+                        <span class="featured-tag">⭐ Top</span>
+                    </div>
+                    <div class="featured-body">
+                        <h3 class="featured-name">${product.name}</h3>
+                        <div class="featured-footer">
+                            <span class="featured-price">$${product.price}</span>
+                            <button class="featured-add-btn" type="button" aria-label="Agregar ${product.name}" data-name="${product.name}">+</button>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function renderItemCard(product) {
+            const isRec = isRecommended(product);
+            return `
+                <article class="item">
+                    <button class="image-button" type="button" data-product="${product.name}" aria-label="Ver información de ${product.name}">
+                        <img class="item-image" src="${product.image}" alt="${product.name}" loading="lazy">
+                        ${isRec ? '<span class="image-badge">⭐ Top</span>' : ''}
+                    </button>
+                    <div class="item-body">
+                        <h3 class="item-name">${product.name}</h3>
+                        <p class="item-description">${product.description}</p>
+                        <div class="item-footer">
+                            <span class="price">$${product.price}</span>
+                            <button class="add" type="button" aria-label="Agregar ${product.name}" data-name="${product.name}">+</button>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        function render(selectedCat = 'todos') {
+            currentCategory = selectedCat;
+            const searchTerm = searchInput.value.trim().toLowerCase();
+
+            // Muestra u oculta botón de limpiar búsqueda
+            searchClear.style.display = searchTerm ? 'flex' : 'none';
+
+            if (searchTerm) {
+                // Modo Búsqueda: Oculta sección de favoritos y muestra coincidencias
+                featuredSection.style.display = 'none';
+                const matching = products.filter(p => `${p.name} ${p.description}`.toLowerCase().includes(searchTerm));
+
+                if (matching.length) {
+                    menuContainer.innerHTML = `
+                        <div class="search-feedback">Se encontraron ${matching.length} plato(s) para "<strong>${searchTerm}</strong>"</div>
+                        <div class="menu-list">
+                            ${matching.map(renderItemCard).join('')}
+                        </div>
+                    `;
+                } else {
+                    menuContainer.innerHTML = `
+                        <div class="empty-results">
+                            <span class="empty-icon">🔍</span>
+                            <strong>No encontramos "${searchTerm}"</strong>
+                            <p>Prueba buscando por "camarón", "encebollado", "arroz" o "combo".</p>
+                        </div>
+                    `;
+                }
+                return;
+            }
+
+            // Modo Normal sin búsqueda
+            if (selectedCat === 'todos') {
+                featuredSection.style.display = 'block';
+                let html = '';
+                categoryGroups.forEach(group => {
+                    const groupItems = products.filter(p => group.categories.includes(p.category));
+                    if (groupItems.length) {
+                        html += `
+                            <section class="menu-section" id="cat-${group.id}">
+                                <div class="menu-section-header">
+                                    <div class="section-icon-box">${group.icon}</div>
+                                    <div class="section-info">
+                                        <h2 class="section-title">${group.name}</h2>
+                                        <span class="section-subtitle">${group.subtitle} • ${groupItems.length} opciones</span>
+                                    </div>
+                                </div>
+                                <div class="menu-list">
+                                    ${groupItems.map(renderItemCard).join('')}
+                                </div>
+                            </section>
+                        `;
+                    }
+                });
+                menuContainer.innerHTML = html;
+            } else {
+                // Filtrado por categoría específica
+                featuredSection.style.display = 'none';
+                const targetGroup = categoryGroups.find(g => g.id === selectedCat);
+                if (targetGroup) {
+                    const groupItems = products.filter(p => targetGroup.categories.includes(p.category));
+                    menuContainer.innerHTML = `
+                        <section class="menu-section" id="cat-${targetGroup.id}">
+                            <div class="menu-section-header">
+                                <div class="section-icon-box">${targetGroup.icon}</div>
+                                <div class="section-info">
+                                    <h2 class="section-title">${targetGroup.name}</h2>
+                                    <span class="section-subtitle">${targetGroup.subtitle} • ${groupItems.length} opciones</span>
+                                </div>
+                            </div>
+                            <div class="menu-list">
+                                ${groupItems.map(renderItemCard).join('')}
+                            </div>
+                        </section>
+                    `;
+                }
+            }
+        }
+
         function updateCartCount() {
             const quantity = cart.reduce((total, item) => total + item.quantity, 0);
             counts.forEach(element => element.textContent = quantity);
         }
+
         function addToCart(productName, quantity = 1) {
             const product = products.find(item => item.name === productName);
             const existing = cart.find(item => item.name === productName);
@@ -486,6 +507,7 @@
             localStorage.setItem('pedido', JSON.stringify(cart));
             updateCartCount();
         }
+
         function openProduct(productName) {
             selectedProduct = products.find(item => item.name === productName);
             if (!selectedProduct) return;
@@ -499,14 +521,13 @@
             productModal.classList.add('visible');
             productModal.setAttribute('aria-hidden', 'false');
         }
+
         function closeProduct() {
             productModal.classList.remove('visible');
             productModal.setAttribute('aria-hidden', 'true');
             selectedProduct = null;
         }
-        function isRecommended(product) {
-            return /profundidad del mar|rompe colchón|combo [1-7]|mixto/i.test(product.name);
-        }
+
         function renderOrder() {
             const quantity = cart.reduce((sum, item) => sum + item.quantity, 0);
             const amount = cart.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
@@ -530,6 +551,7 @@
                     </div>
                 </article>`).join('') : `<div class="order-empty"><strong>Tu pedido está vacío</strong>Agrega tus platos favoritos desde el menú.</div>`;
         }
+
         function showOrder() {
             menuHeader.style.display = 'none';
             menuMain.style.display = 'none';
@@ -540,6 +562,7 @@
             renderOrder();
             window.scrollTo(0, 0);
         }
+
         function showMenu() {
             menuHeader.style.display = '';
             menuMain.style.display = '';
@@ -552,6 +575,7 @@
             updateCartCount();
             window.scrollTo(0, 0);
         }
+
         function showLocation() {
             menuHeader.style.display = 'none';
             menuMain.style.display = 'none';
@@ -565,6 +589,7 @@
             mapsButton.disabled = !locationInput.value.trim();
             window.scrollTo(0, 0);
         }
+
         function showContact() {
             menuHeader.style.display = 'none';
             menuMain.style.display = 'none';
@@ -576,45 +601,57 @@
             contactButton.classList.add('active');
             window.scrollTo(0, 0);
         }
-        function render(category = 'todos') {
-            const searchTerm = searchInput.value.trim().toLowerCase();
-            const visible = products.filter(product => {
-                const inCategory = category === 'todos' || product.category === category;
-                const matchesSearch = !searchTerm || `${product.name} ${product.description}`.toLowerCase().includes(searchTerm);
-                return inCategory && matchesSearch;
-            });
-            list.innerHTML = visible.length ? visible.map(product => `
-                <article class="item">
-                    <button class="image-button" type="button" data-product="${product.name}" aria-label="Ver información de ${product.name}"><img class="item-image" src="${product.image}" alt="" loading="lazy"></button>
-                    <div><div class="item-meta"><h3 class="item-name">${product.name}</h3>${isRecommended(product) ? '<span class="recommended">Recomendado</span>' : ''}</div><p class="item-description">${product.description}</p><span class="price">$${product.price}</span></div>
-                    <button class="add" type="button" aria-label="Agregar ${product.name}" data-name="${product.name}">+</button>
-                </article>`).join('') : '<p class="empty">Próximamente tendremos más opciones.</p>';
-            document.querySelector('#section-title').textContent = ({ todos: 'Menú completo', encebollados: 'Encebollados', ceviches: 'Ceviches', conchitas: 'Conchitas', sopas: 'Sopas', arroz: 'Arroz', cazuelas: 'Cazuelas', encocados: 'Encocados', apanados: 'Apanados', fuertes: 'Platos fuertes', menestras: 'Menestras', porciones: 'Porciones', desayunos: 'Desayunos', bebidas: 'Bebidas', combos: 'Combos' }[category] || 'Menú completo');
-        }
+
+        // Delegación de clics en Categorías
         document.querySelectorAll('.category').forEach(button => button.addEventListener('click', () => {
-            document.querySelector('.category.active').classList.remove('active');
+            document.querySelector('.category.active')?.classList.remove('active');
             button.classList.add('active');
+            searchInput.value = '';
+            searchClear.style.display = 'none';
             render(button.dataset.category);
         }));
-        searchButton.addEventListener('click', () => {
-            const isOpen = searchPanel.classList.toggle('visible');
-            searchButton.setAttribute('aria-expanded', isOpen);
-            if (isOpen) searchInput.focus();
-            else { searchInput.value = ''; render(document.querySelector('.category.active').dataset.category); }
+
+        // Búsqueda en vivo
+        searchInput.addEventListener('input', () => {
+            render(currentCategory);
         });
-        searchInput.addEventListener('input', () => render(document.querySelector('.category.active').dataset.category));
-        list.addEventListener('click', event => {
-            const imageButton = event.target.closest('.image-button');
+
+        searchClear.addEventListener('click', () => {
+            searchInput.value = '';
+            searchClear.style.display = 'none';
+            render(currentCategory);
+            searchInput.focus();
+        });
+
+        // Eventos en tarjetas de menú y favoritos
+        const mainElement = document.querySelector('main');
+        mainElement.addEventListener('click', event => {
+            const imageButton = event.target.closest('.image-button') || event.target.closest('.featured-img-wrap');
             if (imageButton) {
-                openProduct(imageButton.dataset.product);
+                const productCard = event.target.closest('[data-product]') || event.target.closest('.featured-card')?.querySelector('.featured-name') || event.target.closest('.item')?.querySelector('.item-name');
+                const productName = imageButton.dataset.product || productCard?.textContent.trim();
+                if (productName) openProduct(productName);
                 return;
             }
-            if (!event.target.classList.contains('add')) return;
-            addToCart(event.target.dataset.name);
-            toast.textContent = `${event.target.dataset.name} agregado`;
-            toast.classList.add('show'); clearTimeout(toastTimer);
-            toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+
+            const titleClick = event.target.closest('.item-name') || event.target.closest('.featured-name');
+            if (titleClick) {
+                openProduct(titleClick.textContent.trim());
+                return;
+            }
+
+            const addBtn = event.target.closest('.add') || event.target.closest('.featured-add-btn');
+            if (addBtn) {
+                const name = addBtn.dataset.name;
+                addToCart(name);
+                toast.textContent = `${name} agregado`;
+                toast.classList.add('show');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+            }
         });
+
+        // Navegación y modales
         floatingCart.addEventListener('click', showOrder);
         menuButton.addEventListener('click', showMenu);
         locationButton.addEventListener('click', showLocation);
@@ -622,41 +659,50 @@
         document.querySelector('#back-button').addEventListener('click', showMenu);
         document.querySelector('#add-more').addEventListener('click', showMenu);
         document.querySelector('#location-back').addEventListener('click', showMenu);
+
         locationInput.addEventListener('input', () => {
             const value = locationInput.value.trim();
             mapsButton.disabled = !value;
             localStorage.setItem('ubicacion', locationInput.value);
         });
+
         mapsButton.addEventListener('click', () => {
             const value = locationInput.value.trim();
             if (!value) return;
             const destination = /^https?:\/\//i.test(value) ? value : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(value)}`;
             window.open(destination, '_blank');
         });
+
         document.querySelector('#detail-close').addEventListener('click', closeProduct);
         productModal.addEventListener('click', event => {
             if (event.target === productModal) closeProduct();
         });
+
         detailAdd.addEventListener('click', () => {
             if (!selectedProduct) return;
             const productName = selectedProduct.name;
             addToCart(productName, selectedQuantity);
             closeProduct();
             toast.textContent = `${productName} agregado`;
-            toast.classList.add('show'); clearTimeout(toastTimer);
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
             toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
         });
+
         detailDecrease.addEventListener('click', () => {
             selectedQuantity = Math.max(1, selectedQuantity - 1);
             detailQuantity.textContent = selectedQuantity;
         });
+
         detailIncrease.addEventListener('click', () => {
             selectedQuantity += 1;
             detailQuantity.textContent = selectedQuantity;
         });
+
         document.addEventListener('keydown', event => {
             if (event.key === 'Escape' && productModal.classList.contains('visible')) closeProduct();
         });
+
         orderList.addEventListener('click', event => {
             const button = event.target.closest('[data-action]');
             if (!button) return;
@@ -669,14 +715,20 @@
             renderOrder();
             updateCartCount();
         });
+
         clearCartButton.addEventListener('click', () => {
             cart = [];
             localStorage.removeItem('pedido');
             renderOrder();
             updateCartCount();
         });
+
+        // Inicialización
+        renderFeatured();
         render();
         updateCartCount();
     </script>
 </body>
+
+
 </html>
