@@ -106,21 +106,73 @@
             </main>
         </section>
 
-        <!-- Vista Contacto (intacta) -->
+        <!-- Vista Contacto -->
         <section class="contact-view" id="contact-view" aria-labelledby="contact-title">
             <header class="contact-header">
+                <button class="back-button" id="contact-back" type="button"><span aria-hidden="true">‹</span> Volver al
+                    menú</button>
                 <p class="eyebrow">Estamos para ayudarte</p>
                 <h1 id="contact-title">Contáctanos</h1>
             </header>
             <main>
-                <div class="contact-card">
-                    <h2>¿Tienes alguna pregunta?</h2>
-                    <p>Escríbenos para consultar si deseas envios a domicilio.</p>
+                <!-- TARJETA DESTACADA: Pedidos a Domicilio -->
+                <div class="contact-card contact-card-featured">
+                    <div class="contact-card-badge">
+                        <span class="badge-tag">🛵 PEDIDOS A DOMICILIO</span>
+                        <span class="badge-status">Destacado</span>
+                    </div>
+                    <h2 class="featured-contact-title">¡Pide desde casa la próxima vez! 🛵</h2>
+                    <p class="featured-contact-desc">Guarda nuestro WhatsApp para pedidos a domicilio y disfruta tus
+                        platos favoritos donde estés.</p>
                     <a class="whatsapp-button"
-                        href="https://wa.me/593962802439?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20del%20local%20para%20pedidos%20a%20domicilio"
+                        href="https://wa.me/593960448385?text=Hola%20Profundidad%20del%20Mar%2C%20guardo%20este%20contacto%20para%20futuros%20pedidos%20a%20domicilio"
                         target="_blank" rel="noopener noreferrer">
-                        <img class="whatsapp-icon" src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="">
-                        Escribir por WhatsApp
+                        <img class="whatsapp-icon" src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="" width="22"
+                            height="22">
+                        <span>Guardar WhatsApp</span>
+                    </a>
+                </div>
+
+                <!-- Enlaces a Google y TikTok -->
+                <div class="contact-links-group">
+                    <!-- Botón Califícanos en Google (Reemplaza href con el enlace de tu ficha de Google Maps) -->
+                    <a class="social-action-btn google-btn" id="google-review-link"
+                        href="https://www.google.com/maps/place/Cevicheria+y+asados+profundidad+del+mar/@-0.2715736,-78.5507894,68m/data=!3m1!1e3!4m8!3m7!1s0x91d5994106807aa1:0x4a9a7f5eb770b62d!8m2!3d-0.2716871!4d-78.5508348!9m1!1b1!16s%2Fg%2F11zf18qlxb?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D"
+                        target="_blank" rel="noopener noreferrer" title="Califícanos en Google">
+                        <div class="social-btn-icon google-icon-wrap">
+                            <svg viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="#4285F4"
+                                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                <path fill="#34A853"
+                                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                <path fill="#FBBC05"
+                                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                                <path fill="#EA4335"
+                                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                            </svg>
+                        </div>
+                        <div class="social-btn-text">
+                            <strong>Califícanos en Google</strong>
+                            <span>⭐⭐⭐⭐⭐ Tu opinión nos ayuda a crecer</span>
+                        </div>
+                        <span class="social-arrow" aria-hidden="true">›</span>
+                    </a>
+
+                    <!-- Botón TikTok (Reemplaza href con el enlace a tu perfil de TikTok) -->
+                    <a class="social-action-btn tiktok-btn" id="tiktok-link"
+                        href="https://www.tiktok.com/@cevicheriaprofundidadelm?is_from_webapp=1&sender_device=pc"
+                        target="_blank" rel="noopener noreferrer" title="Síguenos en TikTok">
+                        <div class="social-btn-icon tiktok-icon-wrap">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff">
+                                <path
+                                    d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68a6.34 6.34 0 0 0 10.86 4.47 6.27 6.27 0 0 0 1.89-4.52V8.71a8.21 8.21 0 0 0 4.84 1.57v-3.59h-1z" />
+                            </svg>
+                        </div>
+                        <div class="social-btn-text">
+                            <strong>Síguenos en TikTok</strong>
+                            <span>Videos, novedades y promociones</span>
+                        </div>
+                        <span class="social-arrow" aria-hidden="true">›</span>
                     </a>
                 </div>
             </main>
@@ -659,6 +711,7 @@
         document.querySelector('#back-button').addEventListener('click', showMenu);
         document.querySelector('#add-more').addEventListener('click', showMenu);
         document.querySelector('#location-back').addEventListener('click', showMenu);
+        document.querySelector('#contact-back')?.addEventListener('click', showMenu);
 
         locationInput.addEventListener('input', () => {
             const value = locationInput.value.trim();
