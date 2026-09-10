@@ -33,21 +33,21 @@
                 <input class="search-input" id="search-input" type="search"
                     placeholder="¿Qué te provoca hoy? (ej. camarón, combo...)" aria-label="Buscar plato">
                 <button class="search-clear-btn" id="search-clear" type="button"
-                    aria-label="Limpiar búsqueda">✕</button>
+                    aria-label="Limpiar búsqueda">x</button>
             </div>
 
             <!-- Categorías Organizadas -->
             <div class="category-scroll">
                 <nav class="categories" aria-label="Categorías">
-                    <button class="category active" data-category="todos">🌟 Todo el Menú</button>
-                    <button class="category" data-category="combos">🍱 Combos</button>
-                    <button class="category" data-category="encebollados-sopas">🍲 Encebollados &amp; Sopas</button>
-                    <button class="category" data-category="ceviches-conchas">🍋 Ceviches &amp; Conchas</button>
-                    <button class="category" data-category="arroz-cazuelas">🥘 Arroces &amp; Cazuelas</button>
-                    <button class="category" data-category="encocados-apanados">🥥 Encocados &amp; Apanados</button>
-                    <button class="category" data-category="asados-menestras">🥩 Fuertes &amp; Menestras</button>
-                    <button class="category" data-category="desayunos">🌅 Desayunos</button>
-                    <button class="category" data-category="bebidas-porciones">🥤 Bebidas &amp; Extras</button>
+                    <button class="category active" data-category="todos">Todo el Menú</button>
+                    <button class="category" data-category="combos">Combos</button>
+                    <button class="category" data-category="encebollados-sopas">Encebollados &amp; Sopas</button>
+                    <button class="category" data-category="ceviches-conchas">Ceviches &amp; Conchas</button>
+                    <button class="category" data-category="arroz-cazuelas">Arroces &amp; Cazuelas</button>
+                    <button class="category" data-category="encocados-apanados">Encocados &amp; Apanados</button>
+                    <button class="category" data-category="asados-menestras">Fuertes &amp; Menestras</button>
+                    <button class="category" data-category="desayunos">Desayunos</button>
+                    <button class="category" data-category="bebidas-porciones">Bebidas &amp; Extras</button>
                 </nav>
             </div>
         </header>
@@ -118,10 +118,10 @@
                 <!-- TARJETA DESTACADA: Pedidos a Domicilio -->
                 <div class="contact-card contact-card-featured">
                     <div class="contact-card-badge">
-                        <span class="badge-tag">🛵 PEDIDOS A DOMICILIO</span>
+                        <span class="badge-tag">PEDIDOS A DOMICILIO</span>
                         <span class="badge-status">Destacado</span>
                     </div>
-                    <h2 class="featured-contact-title">¡Pide desde casa la próxima vez! 🛵</h2>
+                    <h2 class="featured-contact-title">¡Pide desde casa la próxima vez!</h2>
                     <p class="featured-contact-desc">Guarda nuestro WhatsApp para pedidos a domicilio y disfruta tus
                         platos favoritos donde estés.</p>
                     <a class="whatsapp-button"
@@ -153,7 +153,7 @@
                         </div>
                         <div class="social-btn-text">
                             <strong>Califícanos en Google</strong>
-                            <span>⭐⭐⭐⭐⭐ Tu opinión nos ayuda a crecer</span>
+                            <span>Tu opinión nos ayuda a crecer</span>
                         </div>
                         <span class="social-arrow" aria-hidden="true">›</span>
                     </a>
@@ -202,7 +202,7 @@
         </div>
 
         <!-- Botón flotante carrito -->
-        <button class="floating-cart" id="floating-cart" type="button" aria-label="Abrir carrito">🛒<span
+        <button class="floating-cart" id="floating-cart" type="button" aria-label="Abrir carrito"><span
                 class="cart-label">Carrito</span><span class="floating-count">0</span></button>
 
         <!-- Barra de navegación inferior -->
@@ -329,56 +329,48 @@
         const categoryGroups = [
             {
                 id: "combos",
-                icon: "🍱",
                 name: "Combos del Día",
                 subtitle: "Combos completos",
                 categories: ["combos"]
             },
             {
                 id: "encebollados-sopas",
-                icon: "🍲",
                 name: "Encebollados y Sopas",
                 subtitle: "Albacora fresca y caldos tradicionales",
                 categories: ["encebollados", "sopas"]
             },
             {
                 id: "ceviches-conchas",
-                icon: "🍋",
                 name: "Ceviches y Conchas",
                 subtitle: "Marinados al momento con cítricos frescos",
                 categories: ["ceviches", "conchitas"]
             },
             {
                 id: "arroz-cazuelas",
-                icon: "🥘",
                 name: "Arroces y Cazuelas",
                 subtitle: "Arroces salteados y cazuelas tradicionales",
                 categories: ["arroz", "cazuelas"]
             },
             {
                 id: "encocados-apanados",
-                icon: "🥥",
                 name: "Encocados y Apanados",
                 subtitle: "Salsa cremosa de coco y crocantes dorados",
                 categories: ["encocados", "apanados"]
             },
             {
                 id: "asados-menestras",
-                icon: "🥩",
                 name: "Platos Fuertes y Menestras",
                 subtitle: "Pargos, langostinos y menestras caseras",
                 categories: ["fuertes", "menestras"]
             },
             {
                 id: "desayunos",
-                icon: "🌅",
                 name: "Desayunos Tradicionales",
                 subtitle: "Tigrillos criollos servidos con café",
                 categories: ["desayunos"]
             },
             {
                 id: "bebidas-porciones",
-                icon: "🥤",
                 name: "Bebidas y Porciones",
                 subtitle: "Jugos naturales, jarras y acompañamientos",
                 categories: ["bebidas", "porciones"]
@@ -445,7 +437,7 @@
                 <article class="featured-card">
                     <div class="featured-img-wrap">
                         <img class="featured-img" src="${product.image}" alt="${product.name}" loading="lazy">
-                        <span class="featured-tag">⭐ Top</span>
+                        <span class="featured-tag">Top</span>
                     </div>
                     <div class="featured-body">
                         <h3 class="featured-name">${product.name}</h3>
@@ -464,7 +456,7 @@
                 <article class="item">
                     <button class="image-button" type="button" data-product="${product.name}" aria-label="Ver información de ${product.name}">
                         <img class="item-image" src="${product.image}" alt="${product.name}" loading="lazy">
-                        ${isRec ? '<span class="image-badge">⭐ Top</span>' : ''}
+                        ${isRec ? '<span class="image-badge">Top</span>' : ''}
                     </button>
                     <div class="item-body">
                         <h3 class="item-name">${product.name}</h3>
@@ -500,7 +492,6 @@
                 } else {
                     menuContainer.innerHTML = `
                         <div class="empty-results">
-                            <span class="empty-icon">🔍</span>
                             <strong>No encontramos "${searchTerm}"</strong>
                             <p>Prueba buscando por "camarón", "encebollado", "arroz" o "combo".</p>
                         </div>
@@ -519,7 +510,6 @@
                         html += `
                             <section class="menu-section" id="cat-${group.id}">
                                 <div class="menu-section-header">
-                                    <div class="section-icon-box">${group.icon}</div>
                                     <div class="section-info">
                                         <h2 class="section-title">${group.name}</h2>
                                         <span class="section-subtitle">${group.subtitle} • ${groupItems.length} opciones</span>
